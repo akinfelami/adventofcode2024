@@ -1,2 +1,19 @@
 *.txt
 .DS_Store
+
+# C++ binaries and executables
+day_*
+!day_*.cpp
+*.exe
+*.out
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+
+# Build directories
+build/
+bin/
+obj/
