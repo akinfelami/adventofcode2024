@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall
+CXXFLAGS = -std=c++20 -Wall
 
 # Find all .cpp files starting with day_
 SOURCES = $(wildcard day_*.cpp)
