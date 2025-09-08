@@ -26,26 +26,6 @@ bool is_safe(const vector<int> &levels) {
     return true;
 }
 
-int p1() {
-    ifstream file("input.txt");
-    int safe = 0;
-    string line;
-    while (getline(file, line)) {
-        istringstream iss(line);
-        std::string next;
-        std::vector<int> levels;
-        while (getline(iss, next, ' ')) {
-            levels.push_back(stoi(next));
-        }
-        if (is_safe(levels)) {
-            safe++;
-        }
-    }
-    std::cout << safe << std::endl;
-    file.close();
-    return 0;
-}
-
 int main() {
     ifstream file("input.txt");
     int safe = 0;

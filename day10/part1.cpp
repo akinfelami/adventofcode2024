@@ -31,8 +31,6 @@ void dfs(vector<vector<node>> &grid, int row, int col,
     if (path == "0123456789") {
       trailheads += 1;
     }
-    // for p2 mark this node as not visited
-    visited[row][col] = false;
     path.pop_back();
     return;
   }
@@ -42,56 +40,9 @@ void dfs(vector<vector<node>> &grid, int row, int col,
     dfs(grid, newRow, newCol, visited, path, trailheads);
   }
   path.pop_back();
-  // for p2 mark this node as not visited
-  visited[row][col] = false;
 }
 
 int p1() {
-  ifstream file("input.txt");
-  vector<vector<node>> graph;
-  if (file.is_open()) {
-    string line;
-    size_t row = 0;
-    while (getline(file, line)) {
-      istringstream iss(line);
-      char c;
-      vector<node> nodes;
-      size_t col = 0;
-      while (iss.get(c)) {
-        node n = node{row, col, c};
-        nodes.push_back(n);
-        col++;
-      }
-      row++;
-      graph.push_back(nodes);
-    }
-    int trailheads = 0;
-    for (size_t i = 0; i < graph.size(); i++) {
-      for (size_t j = 0; j < graph.size(); j++) {
-        if (graph[i][j].val == '0') {
-          int rows = graph.size();
-          int cols = graph[0].size();
-          vector<vector<bool>> visited(rows, vector<bool>(cols, false));
-          string pth = "";
-          dfs(graph, i, j, visited, pth, trailheads);
-        }
-      }
-    }
-    // for (size_t i = 0; i < graph.size(); i++) {
-    //   for (size_t j = 0; j < graph.size(); j++) {
-    //     cout << graph[i][j].val;
-    //   }
-    //   cout << endl;
-    // }
-    cout << trailheads << endl;
-  } else {
-    cout << "Unable to open file" << endl;
-  }
-
-  return 0;
-}
-
-int p2() {
   ifstream file("input.txt");
   vector<vector<node>> graph;
   if (file.is_open()) {
@@ -131,6 +82,6 @@ int p2() {
 }
 
 int main() {
-  p2();
-  return 0;
+    p1();
+    return 0;
 }
