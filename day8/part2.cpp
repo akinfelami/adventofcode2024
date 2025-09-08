@@ -6,7 +6,7 @@
 using namespace std;
 
 // visted nodes
-int p2() {
+int main() {
     ifstream file("input.txt");
     vector<vector<char>> grid;
     if (file.is_open()) {
@@ -89,10 +89,5 @@ int p2() {
         cout << "Unable to open file" << endl;
     }
 
-    return 0;
-}
-
-int main() {
-    p2();
     return 0;
 }

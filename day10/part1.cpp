@@ -42,7 +42,7 @@ void dfs(vector<vector<node>> &grid, int row, int col,
   path.pop_back();
 }
 
-int p1() {
+int main() {
   ifstream file("input.txt");
   vector<vector<node>> graph;
   if (file.is_open()) {
@@ -79,9 +79,4 @@ int p1() {
   }
 
   return 0;
-}
-
-int main() {
-    p1();
-    return 0;
 }

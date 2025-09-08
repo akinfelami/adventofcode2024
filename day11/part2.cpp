@@ -6,7 +6,7 @@
 #include <unordered_map>
 using namespace std;
 
-int p2() {
+int main() {
   ifstream file("input.txt");
   if (file.is_open()) {
     string line;
@@ -48,10 +48,5 @@ int p2() {
     cout << "Unable to open file" << endl;
   }
 
-  return 0;
-}
-
-int main() {
-  p2();
   return 0;
 }

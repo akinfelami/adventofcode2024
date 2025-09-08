@@ -30,7 +30,7 @@ string to_base_3(int n, int w) {
   return res;
 }
 
-int p2() {
+int main() {
   ifstream file("input.txt");
 
   unordered_map<long, vector<long>> mappings;
@@ -99,10 +99,5 @@ int p2() {
   } else {
     cout << "Unable to open file";
   }
-  return 0;
-}
-
-int main() {
-  p2();
   return 0;
 }

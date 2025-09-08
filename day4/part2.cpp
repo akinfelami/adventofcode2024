@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-int p2() {
+int main() {
   ifstream file("input.txt");
   int ct = 0;
   vector<vector<char>> mtrx;
@@ -43,11 +43,5 @@ int p2() {
     cout << ct;
   } else {
     cout << "Unable to open file";
-  }
-  return 0;
-}
-
-int main() {
-    p2();
-    return 0;
+  }n  return 0;
 }

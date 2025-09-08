@@ -34,7 +34,7 @@ void attempt_to_move(int dot_pos, int right_pos, vector<string> &nums,
     }
   }
 }
-int p2() {
+int main() {
   ifstream file("input.txt");
   if (file.is_open()) {
     string line;
@@ -89,9 +89,4 @@ int p2() {
   }
 
   return 0;
-}
-
-int main() {
-    p2();
-    return 0;
 }

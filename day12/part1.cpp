@@ -18,7 +18,7 @@ struct node {
 
 vector<vector<int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
-int p1() {
+int main() {
   ifstream file("input.txt");
   vector<vector<node>> graph;
   unordered_set<char> plots;
@@ -60,9 +60,4 @@ int p1() {
   }
 
   return 0;
-}
-
-int main() {
-    p1();
-    return 0;
 }

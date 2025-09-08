@@ -15,7 +15,7 @@ using namespace std;
 
 enum operations { add, multiply, concatenation };
 
-int p1() {
+int main() {
   ifstream file("input.txt");
 
   unordered_map<long, vector<long>> mappings;
@@ -80,9 +80,4 @@ int p1() {
     cout << "Unable to open file";
   }
   return 0;
-}
-
-int main() {
-    p1();
-    return 0;
 }

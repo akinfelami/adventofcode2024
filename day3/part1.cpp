@@ -9,7 +9,7 @@
 #include <vector>
 using namespace std;
 
-int p1() {
+int main() {
   ifstream file("input.txt");
 
   std::string all_text;
@@ -20,7 +20,7 @@ int p1() {
       all_text += line;
     }
     file.close();
-    std::regex mulRegex(R"rgx(mul\(\d+,\d+\))rgx");
+    std::regex mulRegex(R"rgx(mul\d+,\d+)\rgx");
     auto regex_matches =
         std::sregex_iterator(all_text.begin(), all_text.end(), mulRegex);
     auto match_end = std::sregex_iterator();
@@ -33,7 +33,7 @@ int p1() {
       std::vector<int> toks;
       std::string token;
       std::istringstream iss(all_matches[i]);
-      while (std::getline(iss, token, ',')) {
+      while (std::getline(iss, token, ",")) {
         // std::cout << token << "\n";
         toks.push_back(std::stoi(token));
       }
@@ -45,10 +45,5 @@ int p1() {
     std::cout << "Unable to open file";
   }
 
-  return 0;
-}
-
-int main() {
-  p1();
   return 0;
 }

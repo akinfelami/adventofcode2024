@@ -26,7 +26,7 @@ bool is_safe(const vector<int> &levels) {
     return true;
 }
 
-int p1() {
+int main() {
     ifstream file("input.txt");
     int safe = 0;
     string line;
@@ -43,10 +43,5 @@ int p1() {
     }
     std::cout << safe << std::endl;
     file.close();
-    return 0;
-}
-
-int main() {
-    p1();
     return 0;
 }

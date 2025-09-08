@@ -9,7 +9,7 @@
 #include <vector>
 using namespace std;
 
-int p2() {
+int main() {
 
   ifstream file("input.txt");
 
@@ -21,7 +21,7 @@ int p2() {
       all_text += line;
     }
     file.close();
-    std::regex mulRegexDoDont(R"rgx(mul\(\d+,\d+\)|don't\(\)|do\(\))rgx");
+    std::regex mulRegexDoDont(R"rgx(mul(\d+,\d+)|don't()|do())rgx");
     auto regex_matches =
         std::sregex_iterator(all_text.begin(), all_text.end(), mulRegexDoDont);
     auto match_end = std::sregex_iterator();
@@ -34,7 +34,8 @@ int p2() {
     int sum = 0;
     for (int i = 0; i < all_matches.size(); i++) {
       // std::cout << all_matches[i] << std::endl;
-      if (!(all_matches[i].compare("don't()" ))) {
+      if (!(all_matches[i].compare("don't()" )))
+{
         seen_dont = true;
         continue;
       }
@@ -42,7 +43,8 @@ int p2() {
         continue;
       }
 
-      if (!(all_matches[i].compare("do()" ))) {
+      if (!(all_matches[i].compare("do()" )))
+{
         seen_dont = false;
         continue;
       }
@@ -50,7 +52,7 @@ int p2() {
       std::vector<int> toks;
       std::string token;
       std::istringstream iss(all_matches[i].substr(4));
-      while (std::getline(iss, token, ',')) {
+      while (std::getline(iss, token, ",")) {
         toks.push_back(std::stoi(token));
       }
       std::cout << toks[0] << "*" << toks[1] << "\n";
@@ -62,10 +64,5 @@ int p2() {
     std::cout << "Unable to open file";
   }
 
-  return 0;
-}
-
-int main() {
-  p2();
   return 0;
 }

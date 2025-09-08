@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-int p1() {
+int main() {
     ifstream file("input.txt");
     vector<vector<char>> grid;
     if (file.is_open()) {
@@ -67,10 +67,5 @@ int p1() {
         cout << "Unable to open file" << endl;
     }
 
-    return 0;
-}
-
-int main() {
-    p1();
     return 0;
 }

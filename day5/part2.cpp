@@ -9,7 +9,7 @@
 #include <vector>
 using namespace std;
 
-int p2() {
+int main() {
   ifstream file("input.txt");
   vector<string> _rules;
   vector<string> _updates;
@@ -77,9 +77,4 @@ int p2() {
     cout << "Unable to open file";
   }
   return 0;
-}
-
-int main() {
-    p2();
-    return 0;
 }

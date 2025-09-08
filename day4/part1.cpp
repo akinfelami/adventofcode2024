@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 using namespace std;
-int p1() {
+int main() {
   ifstream file("input.txt");
   int ct = 0;
 
@@ -78,9 +78,4 @@ int p1() {
     cout << "Unable to open file";
   }
   return 0;
-}
-
-int main() {
-    p1();
-    return 0;
 }

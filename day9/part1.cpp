@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-int p1() {
+int main() {
   ifstream file("input.txt");
   if (file.is_open()) {
     string line;
@@ -62,9 +62,4 @@ int p1() {
   }
 
   return 0;
-}
-
-int main() {
-    p1();
-    return 0;
 }

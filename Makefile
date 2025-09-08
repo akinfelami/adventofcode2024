@@ -16,20 +16,29 @@ all: $(EXECUTABLES)
 	$(CXX) $(CXXFLAGS) -o $@ $< 
 
 # Target to run a specific day's solution
-# Example usage: make run day=1
+# Example usage: make run day=1 part=1
 run:
 	@if [ -z "$(day)" ]; then \
-		echo "Usage: make run day=<day_number>"; \
+		echo "Usage: make run day=<day_number> [part=<1|2>]"; \
 	else \
 		if [ -d "day$(day)" ]; then \
-			echo "Running day $(day) part 1"; \
-			$(CXX) $(CXXFLAGS) -o day$(day)/part1 day$(day)/part1.cpp && ./day$(day)/part1; \
-			echo "Running day $(day) part 2"; \
-			$(CXX) $(CXXFLAGS) -o day$(day)/part2 day$(day)/part2.cpp && ./day$(day)/part2; \
+			if [ -z "$(part)" ] || [ "$(part)" = "1" ]; then \
+				echo "Running day $(day) part 1"; \
+				$(CXX) $(CXXFLAGS) -o day$(day)/part1 day$(day)/part1.cpp && ./day$(day)/part1; \
+				rm -f day$(day)/part1; \
+			fi; \
+			if [ -z "$(part)" ] || [ "$(part)" = "2" ]; then \
+				echo "Running day $(day) part 2"; \
+				$(CXX) $(CXXFLAGS) -o day$(day)/part2 day$(day)/part2.cpp && ./day$(day)/part2; \
+				rm -f day$(day)/part2; \
+			fi; \
 		else \
 			$(CXX) $(CXXFLAGS) -o day$(day) day$(day).cpp && ./day$(day); \
+			rm -f day$(day); \
 		fi \
 	fi
+
+
 
 
 # Target to clean up compiled files

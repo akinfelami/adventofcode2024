@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <vector>
 
-int p1() {
+int main() {
     std::ifstream file("input.txt");
     std::priority_queue<int, std::vector<int>, std::greater<int>> pq_left;
     std::priority_queue<int, std::vector<int>, std::greater<int>> pq_right;
@@ -31,10 +31,5 @@ int p1() {
     } else {
         std::cout << "Unable to open file";
     }
-    return 0;
-}
-
-int main() {
-    p1();
     return 0;
 }

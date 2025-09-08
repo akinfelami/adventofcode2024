@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <vector>
 using namespace std;
-int p1() {
+int main() {
   ifstream file("input.txt");
   vector<string> _rules;
   vector<string> _updates;
@@ -64,9 +64,4 @@ int p1() {
     cout << "Unable to open file";
   }
   return 0;
-}
-
-int main() {
-    p1();
-    return 0;
 }
