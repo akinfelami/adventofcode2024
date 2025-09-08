@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstddef>
 #include <fstream>
 #include <iostream>
@@ -17,20 +18,21 @@ struct node {
 
 vector<vector<int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
-void compute_area(vector<vector<node>> &grid, int row, int col, int &area,
-                  char val) {
+void compute_perimeter(vector<vector<node>> &grid, int row, int col,
+                       int &perimeter, char val) {
   if (row < 0 || row >= grid.size() || col < 0 || col >= grid[0].size()) {
-    area += 1;
+    perimeter += 1;
     return;
   }
   if (grid[row][col].val != val) {
-    area += 1;
+    perimeter += 1;
   }
 }
 
 void dfs(vector<vector<node>> &grid, int row, int col,
          vector<vector<bool>> &visited, char val, int &perimeter, int &area,
-         int &sides, int prev_row, int prev_col) {
+         int &sides, int prev_row, int prev_col, vector<bool> &visited_rows,
+         vector<bool> &visited_cols) {
   if (row < 0 || row >= grid.size() || col < 0 || col >= grid[0].size() ||
       visited[row][col]) {
     return;
@@ -38,19 +40,20 @@ void dfs(vector<vector<node>> &grid, int row, int col,
   if (grid[row][col].val != val) {
     return;
   }
-  perimeter += 1;
+  area += 1;
   visited[row][col] = true;
-  for (auto &dir : directions) {
-    compute_area(grid, row + dir[0], col + dir[1], area, val);
-  }
-  if (row == prev_row || col == prev_col) {
+
+  if (!visited_rows[row] || !visited_cols[col]) {
     sides += 1;
   }
+  visited_rows[row] = true;
+  visited_cols[col] = true;
 
   for (auto &dir : directions) {
     int newRow = row + dir[0];
     int newCol = col + dir[1];
-    dfs(grid, newRow, newCol, visited, val, perimeter, area, sides, row, col);
+    dfs(grid, newRow, newCol, visited, val, perimeter, area, sides, row, col,
+        visited_rows, visited_cols);
   }
 }
 
@@ -103,6 +106,7 @@ int p1() {
 
   return 0;
 }
+
 int p2() {
   ifstream file("input.txt");
   vector<vector<node>> graph;
@@ -135,13 +139,16 @@ int p2() {
           int perimeter = 0;
           int sides = 0;
           int area = 0;
-          size_t prev_row = i;
-          size_t prev_col = j;
+          size_t prev_row = 0;
+          size_t prev_col = 0;
+          vector<bool> visited_rows(rows, false);
+          vector<bool> visited_cols(cols, false);
           dfs(graph, i, j, visited, this_node.val, perimeter, area, sides,
-              prev_row, prev_col);
-          // cout << "sides for " << this_node.val << " " << sides << endl;
-          // cout << "area for " << this_node.val << " " << area << endl;
-          total += (sides * area);
+              prev_row, prev_col, visited_rows, visited_cols);
+          cout << "area for " << this_node.val << " " << area << endl;
+          cout << "sides for " << this_node.val << " " << sides << endl;
+          total += (area * sides);
+          cout << endl;
         }
       }
     }
