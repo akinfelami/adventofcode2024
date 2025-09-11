@@ -11,101 +11,123 @@
 using namespace std;
 
 struct node {
-  size_t row;
-  size_t col;
-  char val;
+    size_t row;
+    size_t col;
+    char val;
 };
 
 vector<vector<int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
-void compute_perimeter(vector<vector<node>> &grid, int row, int col,
-                       int &perimeter, char val) {
-  if (row < 0 || row >= grid.size() || col < 0 || col >= grid[0].size()) {
-    perimeter += 1;
-    return;
-  }
-  if (grid[row][col].val != val) {
-    perimeter += 1;
-  }
-}
+void dfs(vector<vector<node>>& grid, int row, int col,
+         vector<vector<bool>>& visited, char val, int& perimeter, int& area,
+         int& sides, int prev_row, int prev_col, vector<bool>& visited_rows,
+         vector<bool>& visited_cols) {
+    if (row < 0 || row >= grid.size() || col < 0 || col >= grid[0].size() ||
+        visited[row][col]) {
+        return;
+    }
+    if (grid[row][col].val != val) {
+        return;
+    }
+    area += 1;
+    visited[row][col] = true;
+    cout << row << " " << col << " ";
+    cout << grid[row][col].val << endl;
 
-void dfs(vector<vector<node>> &grid, int row, int col,
-         vector<vector<bool>> &visited, char val, int &perimeter, int &area,
-         int &sides, int prev_row, int prev_col, vector<bool> &visited_rows,
-         vector<bool> &visited_cols) {
-  if (row < 0 || row >= grid.size() || col < 0 || col >= grid[0].size() ||
-      visited[row][col]) {
-    return;
-  }
-  if (grid[row][col].val != val) {
-    return;
-  }
-  area += 1;
-  visited[row][col] = true;
+    // if (!visited_rows[row]) {
+    //     sides += 1;
+    //     for (auto& dir : vector<vector<int>>{{-1, 0}, {1, 0}}) {
+    //         int new_row = dir[0] + row;
+    //         int new_col = dir[1] + col;
+    //         if (new_row < 0 || new_row >= grid.size() || new_col < 0 ||
+    //             new_col >= grid[0].size()) {
+    //             continue;
+    //         }
+    //         if (grid[new_row][new_col].val != val) {
+    //             sides += 1;
+    //         }
+    //     }
+    // } else if (!visited_cols[col]) {
+    //     sides += 1;
+    //     for (auto& dir : vector<vector<int>>{{0, -1}, {0, 1}}) {
+    //         int new_row = dir[0] + row;
+    //         int new_col = dir[1] + col;
+    //         if (new_row < 0 || new_row >= grid.size() || new_col < 0 ||
+    //             new_col >= grid[0].size()) {
+    //             continue;
+    //         }
+    //         if (grid[new_row][new_col].val != val) {
+    //             sides += 1;
+    //         }
+    //     }
+    // }
+    visited_rows[row] = true;
+    visited_cols[col] = true;
 
-  if (!visited_rows[row] || !visited_cols[col]) {
-    sides += 1;
-  }
-  visited_rows[row] = true;
-  visited_cols[col] = true;
-
-  for (auto &dir : directions) {
-    int newRow = row + dir[0];
-    int newCol = col + dir[1];
-    dfs(grid, newRow, newCol, visited, val, perimeter, area, sides, row, col,
-        visited_rows, visited_cols);
-  }
+    for (auto& dir : directions) {
+        int newRow = row + dir[0];
+        int newCol = col + dir[1];
+        dfs(grid, newRow, newCol, visited, val, perimeter, area, sides, row,
+            col, visited_rows, visited_cols);
+    }
+    cout << "Done" << endl;
+    cout << row << " " << col << " " << endl;
+    // if ((row == 0 && col == 0) || (row == grid.size() - 1 && col == 0) ||
+    //     (row == 0 && col == grid[0].size() - 1) ||
+    //     (row == grid.size() - 1 && col == grid[0].size() - 1))
+    //     sides += 2;
 }
 
 int main() {
-  ifstream file("input.txt");
-  vector<vector<node>> graph;
-  unordered_set<char> plots;
-  if (file.is_open()) {
-    string line;
-    size_t row = 0;
-    while (getline(file, line)) {
-      istringstream iss(line);
-      char c;
-      vector<node> nodes;
-      size_t col = 0;
-      while (iss.get(c)) {
-        node n = node{row, col, c};
-        nodes.push_back(n);
-        col++;
-      }
-      row++;
-      graph.push_back(nodes);
-    }
-    unordered_map<char, pair<int, int>> props;
-    size_t rows = graph.size();
-    size_t cols = graph[0].size();
-    vector<vector<bool>> visited(rows, vector<bool>(cols, false));
-    int total = 0;
-    for (size_t i = 0; i < graph.size(); i++) {
-      for (size_t j = 0; j < graph.size(); j++) {
-        node this_node = graph[i][j];
-        if (!visited[i][j]) {
-          int perimeter = 0;
-          int sides = 0;
-          int area = 0;
-          size_t prev_row = 0;
-          size_t prev_col = 0;
-          vector<bool> visited_rows(rows, false);
-          vector<bool> visited_cols(cols, false);
-          dfs(graph, i, j, visited, this_node.val, perimeter, area, sides,
-              prev_row, prev_col, visited_rows, visited_cols);
-          cout << "area for " << this_node.val << " " << area << endl;
-          cout << "sides for " << this_node.val << " " << sides << endl;
-          total += (area * sides);
-          cout << endl;
+    ifstream file("input.txt");
+    vector<vector<node>> graph;
+    unordered_set<char> plots;
+    if (file.is_open()) {
+        string line;
+        size_t row = 0;
+        while (getline(file, line)) {
+            istringstream iss(line);
+            char c;
+            vector<node> nodes;
+            size_t col = 0;
+            while (iss.get(c)) {
+                node n = node{row, col, c};
+                nodes.push_back(n);
+                col++;
+            }
+            row++;
+            graph.push_back(nodes);
         }
-      }
+        unordered_map<char, pair<int, int>> props;
+        size_t rows = graph.size();
+        size_t cols = graph[0].size();
+        vector<vector<bool>> visited(rows, vector<bool>(cols, false));
+        int total = 0;
+        for (size_t i = 0; i < graph.size(); i++) {
+            for (size_t j = 0; j < graph.size(); j++) {
+                node this_node = graph[i][j];
+                if (!visited[i][j]) {
+                    int perimeter = 0;
+                    int sides = 0;
+                    int area = 0;
+                    size_t prev_row = 0;
+                    size_t prev_col = 0;
+                    vector<bool> visited_rows(rows, false);
+                    vector<bool> visited_cols(cols, false);
+                    dfs(graph, i, j, visited, this_node.val, perimeter, area,
+                        sides, prev_row, prev_col, visited_rows, visited_cols);
+                    cout << "area for " << this_node.val << " " << area << endl;
+                    cout << "sides for " << this_node.val << " " << sides
+                         << endl;
+                    total += (area * sides);
+                    cout << endl;
+                }
+            }
+        }
+        cout << total << endl;
+    } else {
+        cout << "Unable to open file" << endl;
     }
-    cout << total << endl;
-  } else {
-    cout << "Unable to open file" << endl;
-  }
 
-  return 0;
+    return 0;
 }
