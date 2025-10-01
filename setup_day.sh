@@ -14,7 +14,6 @@ if [ -d "$DIR_NAME" ]; then
 fi
 
 mkdir "$DIR_NAME"
-touch "$DIR_NAME/input.txt"
 cp start_here "$DIR_NAME/part1.cpp"
 cp start_here "$DIR_NAME/part2.cpp"
 
